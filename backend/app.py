@@ -12,6 +12,8 @@ def create_app():
     app = Flask(__name__)
     frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:5173')
 
+    print(f"--- INICIANDO APP COM ORIGEM DE FRONTEND: {frontend_url} ---")
+    
     CORS(
         app,
         origins=[frontend_url], # Usa a variável dinâmica aqui
