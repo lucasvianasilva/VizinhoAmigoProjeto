@@ -36,16 +36,17 @@ def create_app():
     # Inicializa as extensões
     db.init_app(app)
     jwt.init_app(app)
+
+    # Inicializa o SocketIO com as permissões de CORS corretas
+    socketio.init_app(app, cors_allowed_origins=frontend_url)
+
     Migrate(app, db, directory='backend/migrations')
 
     # --- IMPORTAÇÕES E REGISTRO DAS BLUEPRINTS DENTRO DA FUNÇÃO ---
-    # Ao importar aqui, garantimos que o app já existe e o contexto está correto.
     from backend.routes.auth import auth_bp
     from backend.routes.group_routes import group_bp
     from backend.routes.offer_request_routes import offer_request_bp
     from backend.routes.chat_routes import chat_bp
-    
-    # Importação dos eventos do Socket.IO para garantir que sejam registrados
     from backend.routes import chat_events
 
     app.register_blueprint(auth_bp)
@@ -54,7 +55,6 @@ def create_app():
     app.register_blueprint(chat_bp)
 
     # --- Rotas Globais/Utilitárias ---
-    # (O resto do seu código que estava dentro da função create_app permanece aqui)
     @app.route('/')
     def home():
         return "Backend da Rede de Apoio Comunitário Funcionando!"
