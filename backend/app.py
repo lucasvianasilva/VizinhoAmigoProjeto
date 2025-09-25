@@ -11,12 +11,13 @@ from backend.extensions import db, jwt, socketio
 def create_app():
     app = Flask(__name__)
 
-    # 1. Lista de URLs permitidas para a API normal (GET, POST, etc.)
+    # Lista de origens permitidas final e limpa
     allowed_origins = [
-        "http://localhost:5173",
-        "https://vizinho-amigo-projeto.vercel.app",
+        "http://localhost:5173",  # Para o seu desenvolvimento local
+        "https://vizinho-amigo-projeto.vercel.app",  # URL de produção principal
         "https://vizinho-amigo-projeto-git-main-lucas-vianas-projects-1d5d9999.vercel.app/",
-        "https://vizinho-amigo-projeto-o0q3u6kde-lucas-vianas-projects-1d5d9999.vercel.app/"
+        "https://vizinho-amigo-projeto-pwxmk48wl-lucas-vianas-projects-1d5d9999.vercel.app/"
+        # Se a Vercel gerar uma nova URL de preview, ela pode ser adicionada aqui.
     ]
 
     print(f"--- CONFIGURANDO CORS PARA AS ORIGENS HTTP: {allowed_origins} ---")
@@ -29,12 +30,7 @@ def create_app():
     # Inicializa as extensões
     db.init_app(app)
     jwt.init_app(app)
-
-    # 2. Esta configuração é ESPECÍFICA para o Socket.IO (chat em tempo real)
-    # Usar "*" aqui é a solução padrão e mais robusta para resolver problemas
-    # de handshake do Socket.IO em produção.
     socketio.init_app(app, cors_allowed_origins="*")
-    
     Migrate(app, db, directory='backend/migrations')
 
     # --- IMPORTAÇÕES E REGISTRO DAS BLUEPRINTS DENTRO DA FUNÇÃO ---

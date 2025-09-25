@@ -1,19 +1,20 @@
 # run.py
-
-# 1. Aplica o patch do eventlet PRIMEIRO
 import eventlet
 eventlet.monkey_patch()
 
-# 2. Importa a fábrica de app e a instância do socketio
+import backend
 from backend.app import create_app
 from backend.extensions import socketio
 
-# 3. Cria a instância do app
 app = create_app()
 
-# 4. Inicializa o SocketIO com o app (importante para o servidor de desenvolvimento)
-socketio.init_app(app)
-
-# 5. Executa o servidor de desenvolvimento através do SocketIO
+# Este bloco de execução __main__ é usado apenas para desenvolvimento local.
+# O Gunicorn (no Render) não executará este bloco.
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    # O socketio.run inicia um servidor de desenvolvimento especial que
+    # suporta tanto requisições normais quanto WebSockets.
+    socketio.run(app, host='0.0.0.0', port=5000)
+
+# O Gunicorn no Render irá importar a variável 'app' diretamente deste arquivo.
+# Como o socketio.init_app(app) já foi chamado dentro da função create_app,
+# a variável 'app' já está "preparada" para lidar com as conexões do chat.
