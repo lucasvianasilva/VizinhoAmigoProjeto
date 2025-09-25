@@ -10,7 +10,7 @@ from backend.extensions import db, jwt, socketio
 
 def create_app():
     app = Flask(__name__)
-    
+
     IS_PRODUCTION = os.getenv('RENDER') == 'true'
 
     if IS_PRODUCTION:
@@ -88,4 +88,4 @@ def create_app():
                 "pin": pin
             }), 200
 
-    return app
+    return app, socketio
