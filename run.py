@@ -1,21 +1,17 @@
 # run.py
 
-import eventlet
-eventlet.monkey_patch()
+# Importar o pacote 'backend' é a primeira coisa que fazemos.
+# Isso garante que o código no arquivo 'backend/__init__.py' (incluindo o eventlet.monkey_patch())
+# seja executado antes de qualquer outra importação da nossa aplicação.
+import backend
 
-import os
-import sys
-
-# Pega o caminho absoluto da pasta onde o run.py está
-project_root = os.path.dirname(os.path.abspath(__file__))
-# Adiciona a pasta raiz do projeto ao início do caminho de busca do Python
-sys.path.insert(0, project_root)
-
-# Agora, com o patch aplicado, as outras importações são seguras.
+# Agora que o patch foi aplicado, podemos importar o restante com segurança.
 from backend.app import create_app
 from backend.extensions import socketio
 
 app = create_app()
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, port=5000)
+    # Usamos host='0.0.0.0' para garantir que o servidor seja acessível
+    # a partir de fora do container no ambiente de produção.
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True)

@@ -4,7 +4,6 @@ import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_migrate import Migrate
-
 from backend.config import Config
 from backend.extensions import db, jwt, socketio
 
