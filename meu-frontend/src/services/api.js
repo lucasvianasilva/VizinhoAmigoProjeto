@@ -1,16 +1,16 @@
 // src/services/api.js
 import axios from 'axios';
 
-// Defina a URL base do seu backend Flask.
-// Certifique-se de que o backend esteja rodando em http://127.0.0.1:5000
+// Lê a URL base da variável de ambiente. Se não existir (em modo de desenvolvimento), 
+// usa http://localhost:5000 como padrão.
+const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 const api = axios.create({
-  baseURL: 'http://localhost:5000', // A URL base do seu backend
+  baseURL: baseURL,
 });
 
-// Adicione um interceptador para incluir o token JWT em todas as requisições
-// Isso será útil quando implementarmos a autenticação no frontend
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('accessToken'); // Assumindo que você salvará o token aqui
+  const token = localStorage.getItem('accessToken');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

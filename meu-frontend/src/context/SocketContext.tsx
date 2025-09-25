@@ -2,6 +2,9 @@
 import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import { io, Socket } from 'socket.io-client';
 
+// Lê a URL base da mesma variável de ambiente
+const SOCKET_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 interface INotification {
     message: string;
     conversa_id: number;
@@ -28,7 +31,8 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const [notifications, setNotifications] = useState<INotification[]>([]);
 
     useEffect(() => {
-        const newSocket = io('http://localhost:5000');
+        // Usa a URL correta para a conexão
+        const newSocket = io(SOCKET_URL);
         setSocket(newSocket);
 
         newSocket.on('connect', () => {
@@ -41,8 +45,6 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
         newSocket.on('new_notification', (notification: INotification) => {
             setNotifications(prev => [...prev, notification]);
-            // Opcional: Tocar um som de notificação
-            // new Audio('/path/to/notification.mp3').play();
         });
 
         return () => {
