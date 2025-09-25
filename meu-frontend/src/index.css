@@ -1,0 +1,172 @@
+/* src/index.css */
+/* Importando uma fonte mais amigável do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+/* Definindo variáveis de cores para fácil manutenção */
+:root {
+  --primary-color: #5A95F5; /* Um azul mais suave */
+  --primary-hover: #4a80d1;
+  --secondary-color: #57C49D; /* Um verde complementar */
+  --background-color: #F8F9FA;
+  --text-color: #343a40;
+  --card-background: #FFFFFF;
+  --border-color: #dee2e6;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Reset básico e estilos globais */
+body {
+  margin: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Estilo de container padrão para as páginas */
+.container {
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--card-background);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+h1, h2, h3 {
+  color: var(--text-color);
+}
+
+/* Estilizando formulários de forma uniforme */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+form label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+form input, form textarea, form select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+form input:focus, form textarea:focus, form select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(90, 149, 245, 0.25);
+}
+
+/* Botão padrão */
+button {
+  padding: 12px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Estilo da Logo para a HomePage */
+.logo-container {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo-text {
+  font-size: 5rem; /* Tamanho grande */
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding: 10px;
+  text-shadow: 2px 2px 5px var(--shadow-color);
+}
+
+/* Layout principal */
+.main-layout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Container para páginas de autenticação */
+.auth-container {
+  text-align: center;
+  max-width: 400px;
+}
+
+.auth-container .logo-text {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+}
+
+.auth-container p {
+  color: #6c757d;
+  margin-bottom: 30px;
+}
+
+/* Estilo para botões de alternância (toggle) */
+.toggle-buttons {
+  display: flex;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.toggle-buttons button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  border-radius: 0;
+  box-shadow: none;
+  transition: background-color 0.2s;
+}
+
+.toggle-buttons button:hover {
+  background-color: #e9ecef;
+  transform: none;
+}
+
+.toggle-buttons button.active {
+  background-color: var(--primary-color);
+  color: white;
+}

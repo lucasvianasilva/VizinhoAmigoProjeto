@@ -1,0 +1,14 @@
+# Arquivos do Backend
+backend/venv/
+backend/__pycache__/
+backend/migrations/__pycache__/
+backend/instance/
+*.sqlite3
+
+# Arquivos do Frontend
+meu-frontend/node_modules/
+meu-frontend/dist/
+meu-frontend/.env.local
+
+# Arquivos do Editor
+.vscode/

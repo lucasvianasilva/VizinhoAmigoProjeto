@@ -1,0 +1,89 @@
+/* src/pages/GroupListPage.css - Versão Atualizada */
+.group-list-container {
+  width: 100%;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.list-header h1 {
+  margin: 0;
+}
+
+.actions-container {
+  display: flex;
+  gap: 10px;
+}
+.actions-container button:nth-child(1) { background-color: var(--primary-color); }
+.actions-container button:nth-child(2) { background-color: var(--secondary-color); }
+
+.groups-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.group-item {
+  background: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.group-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.group-item-header {
+  padding: 20px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: white;
+}
+.group-item-header h3 { color: white; margin: 0; font-size: 1.4em; }
+
+.group-item-body { padding: 20px; flex-grow: 1; }
+.group-item-body p { margin: 0 0 15px 0; color: #6c757d; }
+
+.pin-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e9ecef;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+.pin-code { font-family: 'Courier New', Courier, monospace; font-size: 1.1em; font-weight: bold; }
+
+.copy-button { background: none; border: none; color: #6c757d; cursor: pointer; padding: 5px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: background-color 0.2s; box-shadow: none; }
+.copy-button:hover { background-color: #d6d8db; }
+.copy-feedback { color: var(--secondary-color); font-weight: bold; font-size: 0.9em; }
+
+.group-item-footer { padding: 0 20px 20px 20px; }
+.group-item-footer button { width: 100%; background-color: var(--secondary-color); }
+.group-item-footer button:hover { background-color: #4aad8a; }
+
+.no-groups-message { text-align: center; }
+
+.group-item-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.creator-actions {
+    display: flex;
+    gap: 10px;
+}
+.creator-actions button {
+    flex: 1; /* Faz os botões dividirem o espaço */
+}

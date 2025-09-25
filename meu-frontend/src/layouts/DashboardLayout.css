@@ -1,0 +1,12 @@
+/* src/layouts/DashboardLayout.css */
+.dashboard-layout {
+    display: flex;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+    margin-left: 260px; /* A mesma largura do sidebar */
+    width: calc(100% - 260px);
+    box-sizing: border-box;
+}

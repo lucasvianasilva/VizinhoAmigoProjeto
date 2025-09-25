@@ -1,0 +1,32 @@
+# --- Ambiente Virtual ---
+# Ignora a pasta do ambiente virtual do Python
+venv/
+*.venv
+.env
+
+# --- Arquivos de Cache do Python ---
+# Ignora as pastas de cache geradas pelo Python
+__pycache__/
+*.py[cod]
+
+# --- Arquivos do Flask ---
+# Ignora a pasta de instância, onde podem ficar configurações e o banco de dados
+instance/
+.flaskenv
+
+# --- Arquivos de Banco de Dados ---
+# Ignora arquivos de banco de dados SQLite, se você usar
+*.sqlite
+*.sqlite3
+
+# --- Arquivos de Ambiente e Configuração (MUITO IMPORTANTE) ---
+# Ignora arquivos que podem conter senhas e chaves secretas
+configuracao.env
+*.env
+!.env.example # Não ignora arquivos de exemplo
+
+# --- Arquivos do Editor / Sistema Operacional ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,66 @@
+/* src/pages/HomePage.css */
+.home-container {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.home-header h2 {
+  font-size: 1.8em;
+  color: var(--text-color);
+}
+
+.home-header p {
+  font-size: 1.1em;
+  color: #6c757d;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+}
+
+.home-features {
+  margin: 40px 0;
+}
+
+.features-list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  background-color: var(--card-background);
+  padding: 25px;
+  border-radius: 12px;
+  flex: 1;
+  min-width: 220px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.feature-item h4 {
+  color: var(--primary-color);
+  margin-top: 0;
+}
+
+.btn-call-to-action {
+  display: inline-block;
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 12px 25px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn-call-to-action:hover {
+  background-color: #4aad8a;
+  transform: translateY(-2px);
+}

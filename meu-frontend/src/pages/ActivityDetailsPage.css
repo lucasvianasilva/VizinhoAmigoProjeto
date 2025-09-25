@@ -1,0 +1,60 @@
+/* Adicionar em src/pages/ActivityDetailsPage.css */
+.contact-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-top: 3px solid var(--secondary-color);
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.contact-item button {
+  padding: 5px 10px;
+  font-size: 0.8em;
+}
+.btn-danger {
+  background-color: #dc3545 !important;
+}
+.btn-danger:hover {
+  background-color: #c82333 !important;
+}
+
+/* Melhora o espaçamento e alinhamento dos botões de ação */
+.details-actions {
+  gap: 10px; /* Adiciona espaçamento entre os botões */
+  flex-wrap: wrap;
+}
+
+/* Define cores específicas para diferentes ações */
+.btn-primary { background-color: var(--primary-color); }
+.btn-secondary { background-color: var(--secondary-color); }
+.btn-tertiary { background-color: #6c757d; }
+.btn-warning { background-color: #ffc107; color: #333; }
+.btn-warning:hover { background-color: #e0a800; }
+.btn-danger { background-color: #dc3545; }
+.btn-danger:hover { background-color: #c82333; }
+
+/* Reseta o estilo padrão dos botões de estrela */
+.star-rating button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0 2px;
+  cursor: pointer;
+  font-size: 2em; /* Mantém o tamanho das estrelas */
+  color: #ccc; /* Cor padrão para estrela 'off' */
+  transition: transform 0.1s ease-in-out;
+}
+
+/* Estilo para a estrela quando o mouse está sobre ela */
+.star-rating button:hover {
+    transform: scale(1.2);
+}
+
+/* Cor para as estrelas ativas ('on') */
+.star-rating button.on {
+  color: #ffc107;
+}

@@ -1,0 +1,97 @@
+/* src/components/ActivityCard.css */
+.card-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin-bottom: 20px;
+  border-left: 5px solid;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Cores da borda para diferenciar oferta de solicitação */
+.card-solicitacao {
+  border-left-color: #007bff; /* Azul para solicitações */
+}
+.card-oferta {
+  border-left-color: #28a745; /* Verde para ofertas */
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.card-icon {
+  font-size: 24px;
+  color: #555;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.2em;
+  color: #333;
+  flex-grow: 1;
+}
+
+.card-body p {
+  margin: 0;
+  color: #666;
+  line-height: 1.5;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 0.9em;
+  color: #888;
+}
+
+.card-category {
+  background-color: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.card-status {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+/* Cores para o status */
+.status-pendente, .status-disponivel { color: #ffc107; }
+.status-atendida, .status-concluido { color: #28a745; }
+
+/* Tags de Urgência */
+.urgency-tag {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  color: white;
+  font-weight: bold;
+}
+.urgency-baixa { background-color: #17a2b8; }
+.urgency-normal { background-color: #6c757d; }
+.urgency-urgente { background-color: #dc3545; }
+
+.status-tag {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  color: white;
+  font-weight: bold;
+  margin-left: auto; /* Alinha à direita */
+}
+
+.status-in-progress {
+  background-color: var(--primary-color);
+}

@@ -1,0 +1,25 @@
+/* src/pages/GroupDetailsPage.css */
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px; /* Espaçamento entre os elementos do header */
+  margin-bottom: 20px;
+}
+
+.details-header-actions {
+  display: flex;
+  gap: 10px; /* Espaçamento entre os botões */
+}
+
+/* Cores diferentes para os botões */
+.btn-primary {
+  background-color: var(--primary-color);
+}
+.btn-secondary {
+  background-color: var(--secondary-color);
+}
+.btn-tertiary {
+  background-color: #6c757d; /* Cinza */
+}

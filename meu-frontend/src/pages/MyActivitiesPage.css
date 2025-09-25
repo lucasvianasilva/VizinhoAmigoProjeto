@@ -1,0 +1,32 @@
+/* src/pages/MyActivitiesPage.css */
+.my-activities-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tabs-container {
+    display: flex;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.tab-button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #6c757d;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-bottom-color 0.2s;
+}
+
+.tab-button.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.activities-list {
+    margin-top: 20px;
+}
