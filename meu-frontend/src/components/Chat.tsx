@@ -1,6 +1,6 @@
 // src/components/Chat.tsx
 import React, { useState, useEffect, useRef } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { useSocket } from '../context/SocketContext'; // Importa nosso hook de contexto
 import api from '../services/api';
 import './Chat.css';
 
@@ -8,26 +8,29 @@ interface Message {
   id: number;
   conteudo: string;
   remetente_id: number;
+  conversa_id: number; // Adicionado para garantir que a mensagem é da conversa certa
 }
 
 interface ChatProps {
   conversaId: number;
   currentUserId: number;
   otherUserName: string;
-  destinatarioId: number; // ID do usuário que deve receber a notificação
+  destinatarioId: number | null; // ID do usuário que deve receber a notificação
 }
 
 const Chat: React.FC<ChatProps> = ({ conversaId, currentUserId, otherUserName, destinatarioId }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
-  const socketRef = useRef<Socket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  // Usa o socket global do nosso Contexto em vez de criar um novo
+  const { socket } = useSocket();
 
   useEffect(() => {
-    socketRef.current = io('http://localhost:5000');
+    if (!socket) return;
     
     const room = `conversa_${conversaId}`;
-    socketRef.current.emit('join_room', { room });
+    socket.emit('join_room', { room });
 
     const fetchHistory = async () => {
       try {
@@ -39,14 +42,18 @@ const Chat: React.FC<ChatProps> = ({ conversaId, currentUserId, otherUserName, d
     };
     fetchHistory();
 
-    socketRef.current.on('receive_message', (message: Message) => {
-      setMessages(prevMessages => [...prevMessages, message]);
-    });
+    const handleReceiveMessage = (message: Message) => {
+      if (message.conversa_id === conversaId) {
+          setMessages(prevMessages => [...prevMessages, message]);
+      }
+    };
+
+    socket.on('receive_message', handleReceiveMessage);
 
     return () => {
-      socketRef.current?.disconnect();
+      socket.off('receive_message', handleReceiveMessage);
     };
-  }, [conversaId]);
+  }, [conversaId, socket]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -54,14 +61,14 @@ const Chat: React.FC<ChatProps> = ({ conversaId, currentUserId, otherUserName, d
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    if (newMessage.trim() && socketRef.current) {
+    if (newMessage.trim() && socket) {
       const messageData = {
         conteudo: newMessage,
         conversa_id: conversaId,
         remetente_id: currentUserId,
-        destinatario_id: destinatarioId // Envia o ID do destinatário
+        destinatario_id: destinatarioId
       };
-      socketRef.current.emit('send_message', messageData);
+      socket.emit('send_message', messageData);
       setNewMessage('');
     }
   };
