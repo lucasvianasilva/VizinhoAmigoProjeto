@@ -13,7 +13,7 @@ def create_app():
     frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:5173')
 
     print(f"--- INICIANDO APP COM ORIGEM DE FRONTEND: {frontend_url} ---")
-    
+
     CORS(
         app,
         origins=[frontend_url], # Usa a variável dinâmica aqui
@@ -27,7 +27,7 @@ def create_app():
     # Inicializa as extensões
     db.init_app(app)
     jwt.init_app(app)
-    socketio.init_app(app, cors_allowed_origins="*")
+    socketio.init_app(app)
     Migrate(app, db, directory='backend/migrations')
 
     # --- IMPORTAÇÕES E REGISTRO DAS BLUEPRINTS DENTRO DA FUNÇÃO ---
