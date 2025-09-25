@@ -36,7 +36,6 @@ def create_app():
     # Inicializa as extensões
     db.init_app(app)
     jwt.init_app(app)
-    socketio.init_app(app)
     Migrate(app, db, directory='backend/migrations')
 
     # --- IMPORTAÇÕES E REGISTRO DAS BLUEPRINTS DENTRO DA FUNÇÃO ---
