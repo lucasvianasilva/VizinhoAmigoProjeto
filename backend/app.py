@@ -10,13 +10,22 @@ from backend.extensions import db, jwt, socketio
 
 def create_app():
     app = Flask(__name__)
-    frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:5173')
+    
+    IS_PRODUCTION = os.getenv('RENDER') == 'true'
 
-    print(f"--- INICIANDO APP COM ORIGEM DE FRONTEND: {frontend_url} ---")
+    if IS_PRODUCTION:
+        # Se estamos no Render, usamos a URL de produção da Vercel.
+        frontend_url = 'https://vizinho-amigo-projeto.vercel.app'
+    else:
+        # Se estamos na sua máquina local, usamos a URL de desenvolvimento.
+        frontend_url = 'http://localhost:5173'
 
+    print(f"--- AMBIENTE DE PRODUÇÃO DETECTADO: {IS_PRODUCTION} ---")
+    print(f"--- CONFIGURANDO CORS PARA A ORIGEM: {frontend_url} ---")
+    
     CORS(
         app,
-        origins=[frontend_url], # Usa a variável dinâmica aqui
+        origins=[frontend_url],
         methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         supports_credentials=True,
         allow_headers=["Content-Type", "Authorization"]
