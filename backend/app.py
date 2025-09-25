@@ -88,4 +88,4 @@ def create_app():
                 "pin": pin
             }), 200
 
-    return app, socketio
+    return app
