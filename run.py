@@ -1,13 +1,19 @@
 # run.py
-import backend
+
+# 1. Aplica o patch do eventlet PRIMEIRO
+import eventlet
+eventlet.monkey_patch()
+
+# 2. Importa a fábrica de app e a instância do socketio
 from backend.app import create_app
+from backend.extensions import socketio
 
-# Chama a fábrica e desempacota os dois objetos retornados
-app, socketio = create_app()
+# 3. Cria a instância do app
+app = create_app()
 
-# Este bloco é para execução local na sua máquina
+# 4. Inicializa o SocketIO com o app (importante para o servidor de desenvolvimento)
+socketio.init_app(app)
+
+# 5. Executa o servidor de desenvolvimento através do SocketIO
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=5000, debug=True)
-
-# Para o Render, o Gunicorn irá importar a variável 'socketio' deste arquivo,
-# que agora já está totalmente configurada e pronta para uso.
