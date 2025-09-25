@@ -1,5 +1,6 @@
 # backend/app.py
 
+import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -7,17 +8,19 @@ from flask_migrate import Migrate
 from backend.config import Config
 from backend.extensions import db, jwt, socketio
 
-# ATENÇÃO: Note que não estamos mais importando as Blueprints ou os Models aqui no topo.
 
 def create_app():
     app = Flask(__name__)
+    frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:5173')
+
     CORS(
-    app,
-    origins=["http://localhost:5173"],  
-    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
-    supports_credentials=True,
-    allow_headers=["Content-Type", "Authorization"] 
+        app,
+        origins=[frontend_url], # Usa a variável dinâmica aqui
+        methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        supports_credentials=True,
+        allow_headers=["Content-Type", "Authorization"]
     )
+
     app.config.from_object(Config)
 
     # Inicializa as extensões
