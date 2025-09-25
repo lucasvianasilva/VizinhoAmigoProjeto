@@ -11,34 +11,29 @@ from backend.extensions import db, jwt, socketio
 def create_app():
     app = Flask(__name__)
 
-    IS_PRODUCTION = os.getenv('RENDER') == 'true'
+    # Definimos as duas origens permitidas diretamente na lista.
+    allowed_origins = [
+        "http://localhost:5173", # Para o seu desenvolvimento local
+        "https://vizinho-amigo-projeto.vercel.app" # Para o site em produção
+    ]
 
-    if IS_PRODUCTION:
-        # Se estamos no Render, usamos a URL de produção da Vercel.
-        frontend_url = 'https://vizinho-amigo-projeto.vercel.app'
-    else:
-        # Se estamos na sua máquina local, usamos a URL de desenvolvimento.
-        frontend_url = 'http://localhost:5173'
-
-    print(f"--- AMBIENTE DE PRODUÇÃO DETECTADO: {IS_PRODUCTION} ---")
-    print(f"--- CONFIGURANDO CORS PARA A ORIGEM: {frontend_url} ---")
+    print(f"--- CONFIGURANDO CORS PARA AS ORIGENS: {allowed_origins} ---")
     
     CORS(
         app,
-        origins=[frontend_url],
+        origins=allowed_origins,
         methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         supports_credentials=True,
         allow_headers=["Content-Type", "Authorization"]
     )
+    
+    socketio.init_app(app, cors_allowed_origins=allowed_origins)
 
     app.config.from_object(Config)
 
     # Inicializa as extensões
     db.init_app(app)
     jwt.init_app(app)
-
-    # Inicializa o SocketIO com as permissões de CORS corretas
-    socketio.init_app(app, cors_allowed_origins=frontend_url)
 
     Migrate(app, db, directory='backend/migrations')
 
