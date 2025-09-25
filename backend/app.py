@@ -14,7 +14,9 @@ def create_app():
     # Definimos as duas origens permitidas diretamente na lista.
     allowed_origins = [
         "http://localhost:5173", # Para o seu desenvolvimento local
-        "https://vizinho-amigo-projeto.vercel.app" # Para o site em produção
+        "https://vizinho-amigo-projeto.vercel.app", # Para o site em produção
+        "https://vizinho-amigo-projeto-git-main-lucas-vianas-projects-1d5d9999.vercel.app/",
+        "https://vizinho-amigo-projeto-jjw4t2b0e-lucas-vianas-projects-1d5d9999.vercel.app/"
     ]
 
     print(f"--- CONFIGURANDO CORS PARA AS ORIGENS: {allowed_origins} ---")
