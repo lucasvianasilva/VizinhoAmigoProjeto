@@ -1,4 +1,4 @@
-// src/pages/ActivityDetailsPage.tsx - Versão Final com Todos os Botões de Ação
+// src/pages/ActivityDetailsPage.tsx - Versão Final, Completa e Corrigida
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import api from '../services/api';
@@ -70,7 +70,9 @@ const ActivityDetailsPage: React.FC = () => {
     const userData = localStorage.getItem('userData');
     if (userData) { setCurrentUserId(JSON.parse(userData).id); }
     if (!id || !type) { setErro("Informações faltando."); setCarregando(false); return; }
+    
     const endpoint = type === 'solicitacao' ? `/api/solicitacoes/${id}` : `/api/ofertas/${id}`;
+    
     const fetchActivityDetails = async () => {
       try {
         const response = await api.get<ActivityDetails>(endpoint);
@@ -128,7 +130,9 @@ const ActivityDetailsPage: React.FC = () => {
       const response = await api.get(`/api/solicitacao/${id}/conversa`);
       const convId = response.data.id;
       setConversaId(convId);
+
       const solicitanteId = activity.solicitante_id!;
+      
       if (currentUserId !== solicitanteId) {
         setOtherUserName(activity.solicitante?.nome || 'Solicitante');
         setOtherUserId(solicitanteId);
@@ -142,7 +146,7 @@ const ActivityDetailsPage: React.FC = () => {
           setOtherUserId(ajudanteId);
         } else {
           setOtherUserName('Aguardando vizinho...');
-          setOtherUserId(currentUserId); 
+          setOtherUserId(currentUserId);
         }
       }
       setShowChat(true);
@@ -202,6 +206,7 @@ const ActivityDetailsPage: React.FC = () => {
     } catch (error) { alert("Erro ao enviar avaliação."); }
   };
 
+  // --- Lógica de Renderização ---
   if (carregando) return <div className="container">Carregando...</div>;
   if (erro) return <div className="container">{erro}</div>;
   if (!activity) return <div className="container">Atividade não encontrada.</div>;
@@ -221,22 +226,23 @@ const ActivityDetailsPage: React.FC = () => {
         <div className="contact-section">
           <h3>Informações de Contato</h3>
           <p><strong>Oferecido por:</strong> {activity.ofertante.nome}</p>
-          {activity.ofertante.telefone && ( <div className="contact-item"> <span><strong>Telefone:</strong> {activity.ofertante.telefone}</span> <button onClick={() => handleCopy(activity.ofertante!.telefone!)}>{copied ? "Copiado!" : "Copiar"}</button> </div> )}
+          {activity.ofertante.telefone && (
+            <div className="contact-item">
+              <span><strong>Telefone:</strong> {activity.ofertante.telefone}</span>
+              <button onClick={() => handleCopy(activity.ofertante!.telefone!)}>{copied ? "Copiado!" : "Copiar"}</button>
+            </div>
+          )}
           {activity.ofertante.horarios_disponiveis && <p><strong>Horários:</strong> {activity.ofertante.horarios_disponiveis}</p>}
           {activity.ofertante.info_contato && <p><strong>Como contatar:</strong> {activity.ofertante.info_contato}</p>}
         </div>
       )}
 
       <div className="details-actions">
-        {/* --- LÓGICA COMPLETA PARA SOLICITAÇÕES --- */}
         {type === 'solicitacao' && activity.status === 'pendente' && (
           <>
-            {/* Para quem NÃO é o dono */}
             {!isOwner && !showChat && ( <button className="btn-secondary" onClick={handleStartChat}>Oferecer Ajuda</button> )}
-            
-            {/* Para o DONO */}
-            {isOwner && !showChat && !isCompleting && !showRatingForm && ( <button className="btn-secondary" onClick={handleStartChat}>Ver Chat</button> )}
-            {isOwner && !isCompleting && !showRatingForm &&( <button className="btn-primary" onClick={handleMarkAsComplete}>Marcar como Concluída</button> )}
+            {isOwner && !showChat && ( <button className="btn-secondary" onClick={handleStartChat}>Ver Chat</button> )}
+            {isOwner && !isCompleting && !showRatingForm && ( <button className="btn-primary" onClick={handleMarkAsComplete}>Marcar como Concluída</button> )}
             {isOwner && (
                 <>
                     <button className="btn-warning" onClick={() => navigate(`/solicitacao/${id}/edit`)}>Editar</button>
@@ -245,8 +251,6 @@ const ActivityDetailsPage: React.FC = () => {
             )}
           </>
         )}
-        
-        {/* --- LÓGICA COMPLETA PARA OFERTAS --- */}
         {type === 'oferta' && isOwner && activity.status !== 'encerrada' && (
           <>
             <button className="btn-danger" onClick={() => handleUpdateOfferStatus('encerrada')}>Encerrar Oferta</button>
@@ -258,7 +262,6 @@ const ActivityDetailsPage: React.FC = () => {
             )}
           </>
         )}
-
         <button className="btn-tertiary" onClick={() => navigate(-1)}>Voltar</button>
       </div>
 
@@ -286,8 +289,13 @@ const ActivityDetailsPage: React.FC = () => {
         </form>
       )}
 
-      {showChat && conversaId && currentUserId && otherUserId && (
-        <Chat conversaId={conversaId} currentUserId={currentUserId} otherUserName={otherUserName} destinatarioId={otherUserId} />
+      {showChat && conversaId && currentUserId && (
+        <Chat 
+          conversaId={conversaId} 
+          currentUserId={currentUserId} 
+          otherUserName={otherUserName}
+          destinatarioId={otherUserId}
+        />
       )}
     </div>
   );
