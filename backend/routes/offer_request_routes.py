@@ -1,6 +1,6 @@
 # backend/routes/offer_request_routes.py
 
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from backend.extensions import db
@@ -358,18 +358,9 @@ def get_historico_grupo(grupo_id):
         "historico": [s.to_dict() for s in solicitacoes_concluidas]
     }), 200
 
-@offer_request_bp.route('/user/<int:user_id>', methods=['GET', 'OPTIONS']) 
+@offer_request_bp.route('/user/<int:user_id>', methods=['GET'])
 @jwt_required()
 def get_user_details(user_id):
-    if request.method == 'OPTIONS':
-        response = make_response()
-        # Adicionamos manualmente os cabeçalhos que o navegador precisa para continuar
-        response.headers.add("Access-Control-Allow-Origin", "http://localhost:5173")
-        response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
-        response.headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
-        return response
-
-    # Lógica original da rota para a requisição GET
     user = Usuario.query.get_or_404(user_id)
     return jsonify(user.to_dict())
 
